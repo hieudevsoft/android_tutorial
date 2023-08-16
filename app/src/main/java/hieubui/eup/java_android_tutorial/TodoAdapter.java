@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<ToDoHolder> {
     private ArrayList<Todo> todos;
@@ -22,6 +23,17 @@ public class TodoAdapter extends RecyclerView.Adapter<ToDoHolder> {
         View itemView = layoutInflater.inflate(R.layout.item_view, null);
         ToDoHolder toDoHolder = new ToDoHolder(itemView);
         return toDoHolder;
+    }
+
+    public void addItem(Todo todo){
+        todos.add(todo);
+        notifyDataSetChanged();
+    }
+
+    public void setData(List<Todo> newToDos){
+        todos.clear();
+        todos.addAll(newToDos);
+        notifyDataSetChanged();
     }
 
     @Override

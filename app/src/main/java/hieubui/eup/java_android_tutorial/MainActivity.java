@@ -20,18 +20,25 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TodoAdapter todoAdapter;
+    private Button buttonAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ArrayList<Todo> todos = new ArrayList();
-        for(int i =0;i<100;i++){
+        for(int i =0;i<10;i++){
             todos.add(new Todo("title "+i+"","description "+i+""));
         }
         todoAdapter = new TodoAdapter(todos);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager( this));
         recyclerView.setAdapter(todoAdapter);
+        buttonAdd = findViewById(R.id.add_item);
+        buttonAdd.setOnClickListener(v -> {
+            ArrayList<Todo> newTodos = new ArrayList<>(todos);
+            newTodos.add(new Todo("add ne", "moi duoc them"));
+            todoAdapter.setData(newTodos);
+        });
     }
 }
 
