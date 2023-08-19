@@ -25,6 +25,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Button buttonAdd = findViewById(R.id.add_fragment);
+        Button buttonAddB = findViewById(R.id.add_fragment_b);
+        Button buttonBack = findViewById(R.id.back);
+        final Fragment fragmentB = new FragmentB();
+        final Fragment fragmentA = new FragmentA();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        buttonAdd.setOnClickListener(v -> {
+            if(fragmentB.isHidden()){
+                fragmentManager
+                        .beginTransaction()
+                        .show(fragmentB)
+                        .commit();
+            }
+        });
+        buttonAddB.setOnClickListener(v -> {
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_container,fragmentB)
+                    .addToBackStack("b")
+                    .commit();
+        });
+        buttonBack.setOnClickListener(
+                v-> {
+                    if(fragmentB.isVisible()){
+                        fragmentManager
+                                .beginTransaction()
+                                .hide(fragmentB)
+                                .commit();
+                    }
+                }
+                );
     }
 }
