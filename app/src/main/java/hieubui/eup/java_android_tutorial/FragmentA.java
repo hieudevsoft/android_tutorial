@@ -13,6 +13,8 @@ import android.widget.Button;
 
 
 public class FragmentA extends Fragment {
+    private VoidCallBack goToScreenB;
+    Button buttonGoToB;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_a, container, false);
@@ -20,6 +22,15 @@ public class FragmentA extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        buttonGoToB = view.findViewById(R.id.btn_go_to_b);
+        buttonGoToB.setOnClickListener(v -> {
+            goToScreenB.execute();
+        });
+    }
 
+    public static FragmentA newInstance(VoidCallBack goToScreenB){
+        FragmentA instance = new FragmentA();
+        instance.goToScreenB = goToScreenB;
+        return instance;
     }
 }

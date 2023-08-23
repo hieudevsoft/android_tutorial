@@ -20,41 +20,27 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+interface VoidCallBack{
+    void execute();
+}
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button buttonAdd = findViewById(R.id.add_fragment);
-        Button buttonAddB = findViewById(R.id.add_fragment_b);
-        Button buttonBack = findViewById(R.id.back);
-        final Fragment fragmentB = new FragmentB();
-        final Fragment fragmentA = new FragmentA();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        buttonAdd.setOnClickListener(v -> {
-            if(fragmentB.isHidden()){
-                fragmentManager
-                        .beginTransaction()
-                        .show(fragmentB)
-                        .commit();
-            }
-        });
-        buttonAddB.setOnClickListener(v -> {
-            fragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragment_container,fragmentB)
-                    .addToBackStack("b")
+        final Fragment fragmentB = new FragmentB();
+        final Fragment fragmentA = FragmentA.newInstance(() -> {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container,fragmentB)
+                    .addToBackStack(null)
                     .commit();
         });
-        buttonBack.setOnClickListener(
-                v-> {
-                    if(fragmentB.isVisible()){
-                        fragmentManager
-                                .beginTransaction()
-                                .hide(fragmentB)
-                                .commit();
-                    }
-                }
-                );
+
+        fragmentManager.beginTransaction()
+                .add(R.id.fragment_container,fragmentA)
+                .addToBackStack(null)
+                .commit();
     }
 }

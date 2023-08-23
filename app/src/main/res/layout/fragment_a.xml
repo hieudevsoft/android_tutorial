@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:background="#ff1"
     tools:context=".FragmentA">
-
+    <Button
+        android:id="@+id/btn_go_to_b"
+        android:text="Go to B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>
